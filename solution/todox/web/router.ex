@@ -17,6 +17,7 @@ defmodule Todox.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/todo_items", TodoItemController
   end
 
   # Other scopes may use custom stacks.
