@@ -1,24 +1,10 @@
 <h2>Listing todo items</h2>
 
 <table class="table">
-  <thead>
-    <tr>
-      <th>Content</th>
-      <th>Done</th>
-
-      <th></th>
-    </tr>
-  </thead>
   <tbody>
 <%= for todo_item <- @todo_items do %>
-    <tr>
-      <td><%= todo_item.content %></td>
-      <td><%= todo_item.done %></td>
-
-      <td class="text-right">
-        <%= link "Edit", to: todo_item_path(@conn, :edit, todo_item), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: todo_item_path(@conn, :delete, todo_item), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
+    <tr class='<%= if todo_item.done, do: "done" %>'>
+      <td class="content"><%= link todo_item.content, to: todo_item_path(@conn, :edit, todo_item) %></td>
     </tr>
 <% end %>
   </tbody>

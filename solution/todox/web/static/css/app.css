@@ -1,1 +1,5 @@
 /* This file is for your main application css. */
+
+table tr.done td.content {
+  text-decoration: line-through;
+}

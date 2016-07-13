@@ -4,3 +4,5 @@
                         action: todo_item_path(@conn, :update, @todo_item) %>
 
 <%= link "Back", to: todo_item_path(@conn, :index) %>
+
+<%= link "Delete", to: todo_item_path(@conn, :delete, @todo_item), method: :delete, data: [confirm: "Are you sure?"], class: "btnbtn-danger btn-xs" %>
