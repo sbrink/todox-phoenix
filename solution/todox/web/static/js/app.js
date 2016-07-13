@@ -1,21 +1,22 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import 'phoenix_html';
+import $ from 'jquery';
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "phoenix_html"
+$(() => {
+  $(document).on('change', '.todo-item-done-ajax', (event) => {
+    const checkbox = $(event.target);
+    const tableRow = checkbox.closest('tr');
+    const done = checkbox.prop('checked');
+    const id = checkbox.data('id');
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+    $.ajax({
+      url: `/api/todo_items/${id}/toggle`,
+      method: 'patch',
+      data: { done: done },
+      dataType: 'json',
 
-// import socket from "./socket"
+      success: (response) => {
+        tableRow.toggleClass('done', response.todoItem.done);
+      }
+    })
+  });
+});

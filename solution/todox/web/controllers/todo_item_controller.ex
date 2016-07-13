@@ -51,6 +51,15 @@ defmodule Todox.TodoItemController do
     end
   end
 
+  def toggle(conn, %{"id" => id, "done" => done}) do
+    todo_item = Repo.get!(TodoItem, id)
+    changeset = TodoItem.changeset(todo_item, %{ done: done })
+
+    Repo.update!(changeset)
+
+    render(conn, %{ done: done })
+  end
+
   def delete(conn, %{"id" => id}) do
     todo_item = Repo.get!(TodoItem, id)
 

@@ -4,6 +4,9 @@
   <tbody>
 <%= for todo_item <- @todo_items do %>
     <tr class='<%= if todo_item.done, do: "done" %>'>
+      <td class="done">
+        <%= checkbox :todo_item, :done, value: todo_item.done, class: "todo-item-done-ajax", data: [ id: todo_item.id ] %>
+      </td>
       <td class="content"><%= link todo_item.content, to: todo_item_path(@conn, :edit, todo_item) %></td>
     </tr>
 <% end %>

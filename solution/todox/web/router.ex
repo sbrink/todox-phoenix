@@ -20,8 +20,9 @@ defmodule Todox.Router do
     resources "/todo_items", TodoItemController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Todox do
-  #   pipe_through :api
-  # end
+  scope "/api", Todox do
+    pipe_through :api
+
+    patch "/todo_items/:id/toggle", TodoItemController, :toggle
+  end
 end
