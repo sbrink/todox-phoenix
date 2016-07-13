@@ -7,6 +7,7 @@ defmodule Todox.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Todox.Auth, repo: Todox.Repo
   end
 
   pipeline :api do
@@ -18,6 +19,8 @@ defmodule Todox.Router do
 
     get "/", PageController, :index
     resources "/todo_items", TodoItemController
+    resources "/registration", RegistrationController, only: [:new, :create], singleton: true
+    resources "/session", SessionController, only: [:new, :create, :delete], singleton: true
   end
 
   scope "/api", Todox do
