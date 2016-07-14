@@ -1,8 +1,14 @@
 # todox-phoenix
 
-Phoenix workshop that covers typical aspects of web development in the Elixir-based framework. It's done by quick-starting the example todo application. Each step is covered with a thorough description and there's a complete solution available in case of running into problems. The solution code is based on Elixir 1.2, Phoenix 1.2 and Ecto 2.0.
+Welcome to the Phoenix workshop! It covers typical aspects of web development in this amazing Elixir-based framework. The purpose is to demonstrate how easy it is to achieve in Phoenix things developed every day in Rails (or other framework as there are no direct references to Rails). It's done by quick-starting the example todo application.
+
+You'll start with three mandatory exercises (A-C), followed by a bunch of extra exercises (E*) independent from each other, which you'll pick depending on your interests. Each exercise is covered with a thorough description and links with relevant information. There's a complete solution available in case of running into problems.
+
+The solution code is based on Elixir 1.2, Phoenix 1.2 and Ecto 2.0 (it's important as this version brings many changes compared to Ecto 1.x).
 
 ## Prerequisites
+
+### Install dependencies
 
 There are following things you should have installed and ready for the workshop:
 
@@ -11,6 +17,8 @@ There are following things you should have installed and ready for the workshop:
 - [Phoenix](http://www.phoenixframework.org/docs/installation#section-phoenix) (it **must** be v1.2 or newer)
 - [PostgreSQL](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
 
+### Prepare working directory
+
 You should prepare the working directory as well:
 
 1. Clone this repository.
@@ -18,9 +26,17 @@ You should prepare the working directory as well:
 3. Install dependencies with `mix deps.get`.
 4. Compile the project with `mix compile`.
 
-After doing that, you'll be able to start a new project in the `workspace` directory and proceed with the exercises there. And in case of problems, you'll always be able to take a look at and run the complete app in `solution` directory.
+After doing that, you'll be able to start a new project in the `workspace` directory and proceed with the exercises there. And in case of problems, you'll always be able to take a look at and run the complete, compiled app in the `solution` directory.
+
+### Get started with Elixir
+
+You'll be using the Elixir language in this workshop. While it's not assumed that you're already familiar with it, you'll definitely proceed faster and learn more if you'll at least take a first look at the Elixir syntax. You can do so with the excellent [official Getting Started guide](http://elixir-lang.org/getting-started/introduction.html). It's recommended to read through sections 2-18 of the *Getting Started* on the right (from *Basic types* down to *Sigils*).
+
+For those with more time, the *Programming Elixir* book is the ultimate resource for learning Elixir in detail.
 
 ## Exercises
+
+Let's get started in the [previously prepared](#prepare-working-directory) `workspace` directory.
 
 ### A. Starting a new Phoenix project
 
@@ -75,9 +91,54 @@ Now, let's focus on the front-end a bit. But front-end can rarely work without p
 
 You'll find the application CSS in `web/static/css`. You can learn more about how assets work on [Static Assets](http://www.phoenixframework.org/docs/static-assets) page.
 
-### D. Implementing authentication
+### E. Extra exerciees
 
-Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understanding-plug). With it, it's easy to implement middleware and filters needed for features such as authentication. Your next task is to implement a completely working and secure user auth with it.
+Here's a list of extra tasks for those willing to extend their knowledge about Phoenix. They're focusing on different aspects like the back-end, front-end, architecture or the console. Pick whatever you like the most.
+
+#### E1. Use IEx for common database tasks
+
+> Focus: **console** • Difficulty: **easy**
+
+1. Use IEx to create and example todo item, show it, update it and delete it.
+
+#### E2. Implement database seeds
+
+> Focus: **console, back-end** • Difficulty: **medium**
+
+1. Add seed that creates example todos with fixed names belonging to sample users.
+ - in case of calling it multiple times, duplicate items or users shouldn't be created
+
+#### E3. Use Slim for improved templating
+
+> Focus: **front-end** • Difficulty: **easy**
+
+1. Add the phoenix_slime package to the project.
+2. Configure the Slime engine to be applied to `.slime` templates.
+3. Convert application layout from EEx to Slime (`templates/layout/app.html.eex`).
+
+#### E4. Use Sass for extended styling
+
+> Focus: **front-end** • Difficulty: **medium**
+
+1. Add the sass-brunch dependency to the project.
+2. Apply basic styling to todo lists.
+3. Try separating styles into multiple files and importing them.
+
+#### E5. Refactor the app with queries and commands
+
+> Focus: **architecture, back-end** • Difficulty: **hard**
+
+1. Create command (service) modules for each action in todo item controller.
+  - they should include authorization and repo calls
+  - output should be either `{:ok, ...}` or `{:error, ...}`
+  - output should be handled with the `case` directive
+2. Create query module for the index.
+
+### E6. Implementing custom authentication
+
+> Focus: **back-end, front-end** • Difficulty: **hard**
+
+Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understanding-plug). With it, it's easy to implement middleware and filters needed for features such as authentication. This exercise is about implementing a completely working and secure user auth with it.
 
 1. Create the `User` model.
   - model should include the `username` and `password_hash` fields
@@ -93,41 +154,8 @@ Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understandi
 
 There's an excellent section in the Programming Phoenix book about implementing user authentication. There are also many tutorials, for example: [User Authentication from Scratch in Elixir and Phoenix](http://nithinbekal.com/posts/phoenix-authentication/). You can take a look at the solution code, too. You should be already able to create an user model and relevant controllers and views. The only tricky part is the auth plug implemented in `web/controllers/auth.ex` in solution repo.
 
-### E. Additional exerciees
-
-Here's a list of additional tasks for those willing to extend their knowledge about Phoenix.
-
-#### E1. Authorize todo items with users
+Having complete authentication, you can now rework the todo items resource to work with users, like this:
 
 1. Update todo items to belong to users.
 2. Modify the controller and templates to only allow item author to update or delete it.
 3. Display the author of each item on the index page.
-
-#### E2. Use IEx for common database tasks
-
-1. Use IEx to create and example todo item, show it, update it and delete it.
-
-#### E3. Use Slim for improved templating
-
-1. Add the phoenix_slime package to the project.
-2. Configure the Slime engine to be applied to `.slime` templates.
-3. Convert application layout from EEx to Slime (`templates/layout/app.html.eex`).
-
-#### E4. Use Sass for extended styling
-
-1. Add the sass-brunch dependency to the project.
-2. Apply basic styling to todo lists.
-3. Try separating styles into multiple files and importing them.
-
-#### E5. Implement database seeds
-
-1. Add seed that creates example todos with fixed names belonging to sample users.
- - in case of calling it multiple times, duplicate items or users shouldn't be created
-
-#### E6. Refactor the app with queries and commands
-
-1. Create command (service) modules for each action in todo item controller.
-  - they should include authorization and repo calls
-  - output should be either `{:ok, ...}` or `{:error, ...}`
-  - output should be handled with the `case` directive
-2. Create query module for the index.
