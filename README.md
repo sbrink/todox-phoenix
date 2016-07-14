@@ -210,3 +210,5 @@ Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understandi
 1. Update todo items to belong to users.
 2. Modify the controller and templates to only allow item author to update or delete it.
 3. Display the author of each item on the index page.
+
+You'll find a solution code for this exercise on the [custom-auth](https://github.com/visualitypl/todox-phoenix/tree/custom-auth) branch.
