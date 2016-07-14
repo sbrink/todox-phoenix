@@ -101,8 +101,6 @@ Now, let's focus on the front-end a bit. But front-end can rarely work without p
 
 Here's a list of extra tasks for those willing to extend their knowledge about Phoenix. They're focusing on different aspects like the back-end, front-end, architecture or the console. Pick whatever you like the most.
 
-**Note:** At present, only the solution to E6 is implemented in the solution code.
-
 ### E1. Use IEx for common database tasks
 
 > Focus: **console** • Difficulty: **easy**
