@@ -1,7 +1,6 @@
 defmodule Todox.Auth do
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
-  import Phoenix.Controller
 
   def init(opts) do
     Keyword.fetch!(opts, :repo)

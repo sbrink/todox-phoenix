@@ -1,7 +1,6 @@
 defmodule Todox.SessionController do
   use Todox.Web, :controller
   import Todox.Auth, only: [ login: 4, logout: 1 ]
-  alias Todox.User
 
   def new(conn, _params) do
     render(conn, "new.html", username: "")

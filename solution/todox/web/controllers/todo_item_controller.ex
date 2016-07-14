@@ -41,7 +41,7 @@ defmodule Todox.TodoItemController do
     changeset = TodoItem.changeset(todo_item, todo_item_params)
 
     case Repo.update(changeset) do
-      {:ok, todo_item} ->
+      {:ok, _todo_item} ->
         conn
         |> put_flash(:info, "Todo item updated successfully.")
         |> redirect(to: todo_item_path(conn, :index))
