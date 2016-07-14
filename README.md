@@ -101,8 +101,6 @@ Now, let's focus on the front-end a bit. But front-end can rarely work without p
 
 Here's a list of extra tasks for those willing to extend their knowledge about Phoenix. They're focusing on different aspects like the back-end, front-end, architecture or the console. Pick whatever you like the most.
 
-**Note:** At present, only the solution to E6 is implemented in the solution code.
-
 ### E1. Use IEx for common database tasks
 
 > Focus: **console** • Difficulty: **easy**
@@ -185,7 +183,7 @@ Every developer who has worked on large Rails project knows that model and contr
 
 **Hints for Rails devs:** Initially, Ecto included model callbacks, one of the Rails/ActiveRecord features that has heavily contributed to bloated models. That got fixed with Ecto v2, which you can learn more about in [Model callbacks in Phoenix, Ecto and Rails](http://cloudless.pl/articles/11-model-callbacks-in-phoenix-ecto-and-rails) article.
 
-### E6. Implementing custom authentication
+### E6. Implement custom authentication
 
 > Focus: **back-end, front-end** • Difficulty: **hard**
 
