@@ -1,5 +1,7 @@
 # todox-phoenix
 
+![Phoenix logo](https://raw.githubusercontent.com/phoenixframework/phoenix/master/priv/static/phoenix.png)
+
 Welcome to the Phoenix workshop! It covers typical aspects of web development in this amazing Elixir-based framework. The purpose is to demonstrate how easy it is to achieve in Phoenix things developed every day in Rails (or other framework as there are no direct references to Rails). It's done by quick-starting the example todo application.
 
 You'll start with three mandatory exercises (A-C), followed by a bunch of extra exercises (E*) independent from each other, which you'll pick depending on your interests. Each exercise is covered with a thorough description and links with relevant information. There's a complete solution available in case of running into problems.
