@@ -5,6 +5,8 @@ defmodule Todox.TodoItem do
     field :content, :string
     field :done, :boolean, default: false
 
+    belongs_to :user, Todox.User
+
     timestamps()
   end
 
