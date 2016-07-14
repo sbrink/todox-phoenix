@@ -183,7 +183,7 @@ Every developer who has worked on large Rails project knows that model and contr
 
 **Hints for Rails devs:** Initially, Ecto included model callbacks, one of the Rails/ActiveRecord features that has heavily contributed to bloated models. That got fixed with Ecto v2, which you can learn more about in [Model callbacks in Phoenix, Ecto and Rails](http://cloudless.pl/articles/11-model-callbacks-in-phoenix-ecto-and-rails) article.
 
-### E6. Implementing custom authentication
+### E6. Implement custom authentication
 
 > Focus: **back-end, front-end** • Difficulty: **hard**
 
