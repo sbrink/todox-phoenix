@@ -48,9 +48,16 @@ Here's what to do in order to bootstrap the project and make it ready for our to
 
 **Hints:** Take a look at [Up And Running](http://www.phoenixframework.org/docs/up-and-running) to learn how to start a new project. Look for the database configuration in `config` directory and templates in `web/templates` directory. You'll know that the database is configured correctly when `mix ecto.create` succeds. You'll find more about how to handle the database on the [Ecto Models](http://www.phoenixframework.org/docs/ecto-models) description page.
 
-**Hints for Rails devs:** If you'd like to see how directory structure and Rake tasks from Rails project map to ones in Phoenix, read the [The best of Rails in Phoenix (part 1)](http://cloudless.pl/articles/2-the-best-of-rails-in-phoenix-part-1) .
+**Hints for Rails devs:** If you'd like to see how directory structure and Rake tasks from Rails project map to ones in Phoenix, read the [The best of Rails in Phoenix (part 1)](http://cloudless.pl/articles/2-the-best-of-rails-in-phoenix-part-1).
 
 After this step, you should have a working project that runs without errors via `mix phoenix.server` command and properly displays an empty home page in the browser at `localhost:4000`. You're now familiar with the Mix tool which serves as a single command for running all tasks in Elixir world.
+
+#### Note: Fixing asset compilation
+
+If you see asset compilation errors in the console, try the following:
+
+1. If the error is about babel, try running `npm install --save-dev babel-preset-es2015`.
+2. If you're using Ubuntu and the error is about inotify, run `sudo apt-get install inotify-tools`.
 
 ### B. Implementing todo item management
 
@@ -79,7 +86,7 @@ Now, it's time to jump into actually coding in Elixir. You'll see how to impleme
 - [Views](http://www.phoenixframework.org/docs/views)
 - [Templates](http://www.phoenixframework.org/docs/templates)
 
-Also, there are tons of tutorials about creating CRUD in Phoenix, like [Getting Started With Phoenix: Building a Scaffolded CRUD App](http://nithinbekal.com/posts/elixir-phoenix-crud-app/) or [Phoenix "15 Minute Blog" comparison to Ruby on Rails](http://www.akitaonrails.com/2015/11/20/phoenix-15-minute-blog-comparison-to-ruby-on-rails).
+Take a look at the `mix phoenix.gen.html` task in order to proceed faster. Also, there are tons of tutorials about creating CRUD in Phoenix, like [Getting Started With Phoenix: Building a Scaffolded CRUD App](http://nithinbekal.com/posts/elixir-phoenix-crud-app/) or [Phoenix "15 Minute Blog" comparison to Ruby on Rails](http://www.akitaonrails.com/2015/11/20/phoenix-15-minute-blog-comparison-to-ruby-on-rails).
 
 After this step, you should be able to list, add, edit and delete todo items in the browser in a traditional fashion. You now know how to create a model and implement controller with accompanying views and templates. You can also use router and its view helpers, too.
 
@@ -130,6 +137,12 @@ TodoItem |> Repo.get!(id) |> TodoItem.changeset(%{ done: true }) |> Repo.update!
 TodoItem |> Repo.get!(id) |> Repo.delete!
 ```
 
+Try inspecting response from each of these commands. Also, try writing your own queries; here are some ideas:
+
+- find out the name of last update time column, then get top 3 recently updated todo items
+- create 50 todo items, called "Item 1", "Item 2", etc; use `Enum.each` and ranges
+- remove all those 50 todo items, but without removing any with different names
+
 **Hints:** You can learn more about the fascinating Ecto query syntax in [Ecto.Query documentation](https://hexdocs.pm/ecto/Ecto.Query.html).
 
 Using IEx, you'll be able to quickly act on your database. And with IEx's ability to plug into running production application, you'll be able to do that on production easier than ever.
@@ -169,25 +182,11 @@ It's hard to imagine styling a complete project with plain CSS. So let's fix tha
 
 As Phoenix uses Brunch for assets, there's a variety of packages for making your work with CSS more pleasant, including [sass-brunch](https://www.npmjs.com/package/sass-brunch), [stylus-brunch](https://www.npmjs.com/package/stylus-brunch) or [postcss-brunch](https://www.npmjs.com/package/postcss-brunch). All of them will perfectly integrate with the Phoenix's hot CSS reloading too, so you should be able to configure a perfect front-end workspace for yourself.
 
-### E5. Refactor the app with queries and commands
+### E5. Implement custom authentication
 
-> Focus: **architecture, back-end** • Difficulty: **hard**
+> Focus: **back-end, front-end** • Difficulty: **medium, long**
 
-Every developer who has worked on large Rails project knows that model and controller layers are not enough alone for organizing the growing amount of business logic. That's why patterns like service/command objects, form objects and query objects emerged with gems like [rectify](https://github.com/andypike/rectify). The task is to mimic that in Phoenix:
-
-1. Create command (service) modules for each action in todo item controller.
-  - they should include authorization and repo calls
-  - output should be either `{:ok, ...}` or `{:error, ...}`
-  - output should be handled with the `case` directive
-2. Create query module for the index.
-
-**Hints for Rails devs:** Initially, Ecto included model callbacks, one of the Rails/ActiveRecord features that has heavily contributed to bloated models. That got fixed with Ecto v2, which you can learn more about in [Model callbacks in Phoenix, Ecto and Rails](http://cloudless.pl/articles/11-model-callbacks-in-phoenix-ecto-and-rails) article.
-
-### E6. Implement custom authentication
-
-> Focus: **back-end, front-end** • Difficulty: **hard**
-
-Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understanding-plug). With it, it's easy to implement middleware and filters needed for features such as authentication. This exercise is about implementing a completely working and secure user auth with it.
+Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understanding-plug). With it, it's easy to implement middleware and filters needed for features such as authentication. This exercise is about implementing a completely working and secure user auth with it. It's perfect for those who'd like to practice the CRUD resource implementation (first introduced in exercise B).
 
 1. Create the `User` model.
   - model should include the `username` and `password_hash` fields
@@ -201,7 +200,7 @@ Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understandi
   - logged in user should be assigned as `current_user` conn assign
 5. Add links in layout for registering, logging in and logging out.
 
-**Hints:** There's an excellent section in the *Programming Phoenix* book about implementing user authentication (which the solution code is based on). There are also many tutorials, for example: [User Authentication from Scratch in Elixir and Phoenix](http://nithinbekal.com/posts/phoenix-authentication/). You can take a look at the solution code, too. You should be already able to create an user model and relevant controllers and views. The only tricky part is the auth plug implemented in `web/controllers/auth.ex` in solution repo.
+**Hints:** Take a look at the `mix phoenix.gen.model` task. There's an excellent section in the *Programming Phoenix* book about implementing user authentication (which the solution code is based on). There are also many tutorials, for example: [User Authentication from Scratch in Elixir and Phoenix](http://nithinbekal.com/posts/phoenix-authentication/). You can take a look at the solution code, too. You should be already able to code an user model and relevant controllers and views. The only tricky part is the auth plug implemented in `web/controllers/auth.ex` in solution repo.
 
 **Follow up:** Having complete authentication, you can now rework the todo items resource to work with users, like this:
 
@@ -209,4 +208,20 @@ Phoenix flow is based on [Plug](http://www.phoenixframework.org/docs/understandi
 2. Modify the controller and templates to only allow item author to update or delete it.
 3. Display the author of each item on the index page.
 
+**Hints:** You'll need the `mix ecto.gen.migration` task in order to add user_id to TodoItem model.
+
 You'll find a solution code for this exercise on the [custom-auth](https://github.com/visualitypl/todox-phoenix/tree/custom-auth) branch.
+
+### E6. Refactor the app with queries and commands
+
+> Focus: **architecture, back-end** • Difficulty: **hard**
+
+Every developer who has worked on large Rails project knows that model and controller layers are not enough alone for organizing the growing amount of business logic. That's why patterns like service/command objects, form objects and query objects emerged with gems like [rectify](https://github.com/andypike/rectify). The task is to mimic that in Phoenix:
+
+1. Create command (service) modules for each action in todo item controller.
+  - they should include authorization and repo calls
+  - output should be either `{:ok, ...}` or `{:error, ...}`
+  - output should be handled with the `case` directive
+2. Create query module for the index.
+
+**Hints for Rails devs:** Initially, Ecto included model callbacks, one of the Rails/ActiveRecord features that has heavily contributed to bloated models. That got fixed with Ecto v2, which you can learn more about in [Model callbacks in Phoenix, Ecto and Rails](http://cloudless.pl/articles/11-model-callbacks-in-phoenix-ecto-and-rails) article.
